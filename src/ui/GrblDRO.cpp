@@ -30,8 +30,14 @@ extern FileChooser fileChooser;
         menuItems.push_back( MenuItem::simpleItem(5, "Unlock ($X)", [](MenuItem&){  
             GCodeDevice::getDevice()->schedulePriorityCommand("$X"); 
         }) );
+        menuItems.push_back( MenuItem::simpleItem(5, "Bed forward", [](MenuItem&){  
+            GCodeDevice::getDevice()->schedulePriorityCommand("G0 G53 Y0"); 
+        }) );
         menuItems.push_back( MenuItem::simpleItem(6, "Set XYZ to 0", [](MenuItem&){  
             GCodeDevice::getDevice()->scheduleCommand("G10 L20 P1 X0Y0Z0"); 
+        }) );
+        menuItems.push_back( MenuItem::simpleItem(6, "Set XY to 0", [](MenuItem&){  
+            GCodeDevice::getDevice()->scheduleCommand("G10 L20 P1 X0Y0"); 
         }) );
         menuItems.push_back( MenuItem::simpleItem(6, "Goto XY=0", [](MenuItem&){  
             GCodeDevice::getDevice()->scheduleCommand("G0 X0Y0"); 

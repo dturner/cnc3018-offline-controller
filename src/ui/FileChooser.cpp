@@ -24,7 +24,8 @@
     }
 
     bool FileChooser::isGCode(const String &s) {
-        int p = s.lastIndexOf('.');
+        if (s.startsWith("_")) return false; // ignore files which start with an underscore
+        int p = s.indexOf('.');
         if(p==-1) return true; // files without extension can be printed
         String ext = s.substring(p+1); ext.toLowerCase();
         return (ext=="gcode" || ext=="nc" || ext=="gc" || ext=="gco");
@@ -47,8 +48,10 @@
             if(i>=startingIndex && i<startingIndex+(int)MAX_FILES) {
                 String name = file.name();
                 S_DEBUGF("loadDirContents: file %s\n", name.c_str() );
-                int p = name.lastIndexOf('/');  if(p>=0) name = name.substring(p+1);
-
+                int p = name.lastIndexOf('/');  
+                if(p>=0) {
+                    name = name.substring(p+1);
+                } 
                 if(file.isDirectory() ) { 
                     name += "/"; 
                     files.push_back(name);
